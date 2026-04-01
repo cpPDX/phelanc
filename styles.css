@@ -311,10 +311,25 @@ section {
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 1fr 1fr;
   gap: 48px;
   align-items: center;
   margin-top: 40px;
+}
+
+.about-photo {
+  flex-shrink: 0;
+}
+
+.headshot {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  box-shadow: 0 0 0 6px var(--surface-2), 0 0 24px rgba(88, 166, 255, 0.15);
+  display: block;
 }
 
 .about-text p {
@@ -788,6 +803,12 @@ footer {
   .about-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .about-text {
+    text-align: left;
   }
 
   .edu-grid {
