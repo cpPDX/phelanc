@@ -606,6 +606,10 @@ section {
   margin-top: 8px;
 }
 
+.projects-grid--single {
+  grid-template-columns: minmax(auto, 360px);
+}
+
 .project-card {
   background: var(--surface-2);
   border: 1px solid var(--border);
