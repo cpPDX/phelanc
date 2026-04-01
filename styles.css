@@ -606,8 +606,28 @@ section {
   margin-top: 8px;
 }
 
-.projects-grid--single {
-  grid-template-columns: minmax(auto, 360px);
+.projects-grid--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.project-card--link {
+  display: block;
+  color: inherit;
+  cursor: pointer;
+}
+
+.project-card--link h3 {
+  transition: color var(--transition);
+}
+
+.project-card--link:hover h3 {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .projects-grid--two {
+    grid-template-columns: 1fr;
+  }
 }
 
 .project-card {
