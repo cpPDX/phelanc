@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using AI Personas to Pressure-Test Product Stories — Chris Phelan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .article-hero {
+      padding: 140px 0 64px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(88, 166, 255, 0.08) 0%, transparent 70%);
+    }
+
+    .article-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 40px;
+      transition: color var(--transition);
+    }
+
+    .article-back:hover { color: var(--accent); }
+
+    .article-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(88, 166, 255, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .article-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+
+    .article-meta {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .article-body {
+      padding: 64px 0 100px;
+    }
+
+    .article-content {
+      max-width: 680px;
+    }
+
+    .article-content p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+
+    .article-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    .article-footer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-author-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--border);
+    }
+
+    .article-author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .article-author-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article-author-title {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .article-hero { padding: 120px 0 48px; }
+      .article-body { padding: 48px 0 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">CP</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ARTICLE HERO -->
+  <section class="article-hero">
+    <div class="container">
+      <a href="index.html#projects" class="article-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Projects
+      </a>
+      <div class="article-tag">AI &amp; Product Process</div>
+      <h1 class="article-title">Using AI Personas to Pressure-Test Product Stories Before Engineering Touches Them</h1>
+      <p class="article-meta">Chris Phelan &nbsp;·&nbsp; Senior Technical Product Manager</p>
+    </div>
+  </section>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-body">
+    <div class="container">
+      <div class="article-content">
+
+        <p>One of the most expensive problems in product development isn't bad code — it's late feedback. Requirements that are too vague or too elaborate, customer objections that surface after a demo, assumptions about user behavior that nobody challenged until it was already built.</p>
+
+        <p>I started using AI personas to solve this before it happens.</p>
+
+        <p>The approach is straightforward: before I bring a story or a scoping document to a stakeholder, I run my assumptions through two fleet-specific personas — a Fleet Manager evaluating whether a feature would actually get released into their operation, and a Master Technician assessing whether it would hold up across different stages of a technician's career and technical reality.</p>
+
+        <p>The personas ask the questions a busy stakeholder doesn't have time to walk me through from scratch.</p>
+
+        <p>When I was scoping a Work Order system for a fleet that didn't have one, I used the Fleet Manager persona to build a working assumption set — what features a work order system typically needs, who interacts with it, what the key touchpoints are. By the time I got to my actual stakeholder, I wasn't starting from zero. They could validate and refine instead of educate. Their feedback became "we need those things, but this one doesn't really apply in a fleet environment" — which is exactly the conversation you want to be having at that stage, not after a demo.</p>
+
+        <p>The result is tighter requirements, fewer surprises in test, and stakeholder time that actually counts.</p>
+
+        <p>The personas work best as a starting point, not a final filter. They don't replace customer conversations — they make those conversations more productive by reducing the time spent on foundational assumptions. Where this breaks down is highly specialized or operationally unique fleets — a niche refrigerated carrier or a construction equipment fleet operates differently enough that generic fleet personas miss important nuance. In those cases the persona gets me close, but the stakeholder gap-fill is more substantial.</p>
+
+        <hr class="article-divider" />
+
+        <div class="article-footer">
+          <img src="IMG_0226.jpeg" alt="Chris Phelan" class="article-author-photo" />
+          <div class="article-author-info">
+            <span class="article-author-name">Chris Phelan</span>
+            <span class="article-author-title">Senior Technical Product Manager &nbsp;·&nbsp; Portland, OR</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Chris Phelan. Built with care.</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+
+</body>
+</html>
