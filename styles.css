@@ -669,6 +669,28 @@ section {
   transform: translateX(4px);
 }
 
+.contact-item-featured {
+  border-color: rgba(88, 166, 255, 0.4);
+  background: var(--surface-2);
+  padding: 28px 32px;
+}
+
+.contact-item-featured:hover {
+  box-shadow: 0 4px 24px var(--accent-glow-strong);
+}
+
+.contact-arrow {
+  margin-left: auto;
+  color: var(--accent);
+  opacity: 0.6;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.contact-item:hover .contact-arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
 .contact-icon {
   width: 44px;
   height: 44px;
