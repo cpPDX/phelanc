@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Built an AI Product Owner Agent That Reviews My Azure DevOps Backlog — Chris Phelan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .article-hero {
+      padding: 140px 0 64px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(88, 166, 255, 0.08) 0%, transparent 70%);
+    }
+
+    .article-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 40px;
+      transition: color var(--transition);
+    }
+
+    .article-back:hover { color: var(--accent); }
+
+    .article-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(88, 166, 255, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .article-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+
+    .article-meta {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .article-body {
+      padding: 64px 0 100px;
+    }
+
+    .article-content {
+      max-width: 680px;
+    }
+
+    .article-content p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+
+    .article-content h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 48px 0 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .article-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .article-content ul {
+      margin-bottom: 24px;
+      padding-left: 0;
+    }
+
+    .article-content ul li {
+      position: relative;
+      padding-left: 16px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 8px;
+    }
+
+    .article-content ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .article-content blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 0 0 24px;
+      padding: 4px 0 4px 20px;
+      background: var(--surface);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .article-content blockquote p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      line-height: 1.7;
+      margin-bottom: 0;
+      padding: 12px 16px;
+      white-space: pre-wrap;
+    }
+
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    .article-footer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-author-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--border);
+    }
+
+    .article-author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .article-author-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article-author-title {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .article-hero { padding: 120px 0 48px; }
+      .article-body { padding: 48px 0 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">CP</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ARTICLE HERO -->
+  <section class="article-hero">
+    <div class="container">
+      <a href="index.html#projects" class="article-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Projects
+      </a>
+      <div class="article-tag">AI &amp; Product Tooling</div>
+      <h1 class="article-title">I Built an AI Product Owner Agent That Reviews My Azure DevOps Backlog</h1>
+      <p class="article-meta">Chris Phelan &nbsp;·&nbsp; Senior Technical Product Manager</p>
+    </div>
+  </section>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-body">
+    <div class="container">
+      <div class="article-content">
+
+        <p>Every product leader knows the feeling. You open your backlog and it's a graveyard of half-written user stories, bugs with no description, and acceptance criteria that says "it works." You know you should clean it up. You also know you won't, because you have 40 other things to do today.</p>
+
+        <p>So I built an agent to do it for me.</p>
+
+        <h2>What it does</h2>
+
+        <p>I set up Claude CLI as a product owner agent that connects to Azure DevOps, pulls every open user story, bug, feature, and epic, and reviews each one against a defined set of completeness criteria. It generates a markdown report that shows me exactly what's wrong with each item, suggests corrected descriptions in "As a... I want/should/need... So that..." format, and writes real Given/When/Then acceptance criteria derived from the context of each story.</p>
+
+        <p>Items with serious problems get tagged <strong>NeedsReview</strong> in DevOps so they're visible to the team. Items with minor gaps (missing estimates, title formatting) show up in the report but don't get tagged.</p>
+
+        <p>On the next run, it checks everything it's tracking for changes, flags new issues, and removes tags from items that have been fixed. It keeps a local state file so it knows what changed since last time.</p>
+
+        <h2>How it works</h2>
+
+        <p>The setup is surprisingly simple. Three things:</p>
+
+        <ul>
+          <li>A project folder with a <strong>CLAUDE.md</strong> file that contains the agent's instructions — what to check, how strict to be, what format to use for suggestions, and how to interact with Azure DevOps.</li>
+          <li>The Azure CLI with the <strong>azure-devops</strong> extension, authenticated and pointed at your org and project.</li>
+          <li>Claude CLI, launched from the project folder. It reads the CLAUDE.md automatically and knows what to do. You tell it "run the initial import" and it starts pulling items via <strong>az boards query</strong>, fetching details, and building the report.</li>
+        </ul>
+
+        <p>That's it. No custom code. No infrastructure. No API integration to maintain. The entire "application" is a markdown file with well-structured instructions.</p>
+
+        <h2>What the agent checks</h2>
+
+        <p>The criteria are split into two tiers so it's not flagging everything on day one.</p>
+
+        <p><strong>Flags (tags the item in DevOps):</strong> missing descriptions, descriptions not in user story format, missing acceptance criteria, acceptance criteria not in Gherkin format, missing severity on bugs, missing parent links on stories.</p>
+
+        <p><strong>Warnings (report only):</strong> title format inconsistencies, missing hour estimates, missing category tags, feature/epic gaps. These are aspirational for now and get promoted to flags as the team matures.</p>
+
+        <p>The tiers matter. My first run without them tagged 98% of the backlog. That's not useful — it's noise. Tuning the strictness so that flags represent genuinely broken items and warnings represent improvement opportunities made the output actionable.</p>
+
+        <h2>What the suggestions look like</h2>
+
+        <p>The agent doesn't just say "description is wrong." It rewrites it. If a user story says "Add filtering to alerts page," the agent suggests something like:</p>
+
+        <blockquote><p>As a Shop Supervisor, I want to filter alerts by severity level, so that I can prioritize critical vehicle issues during my daily review.</p></blockquote>
+
+        <p>Then it generates acceptance criteria based on that description:</p>
+
+        <blockquote><p>Given I am a Shop Supervisor viewing the alerts dashboard
+When I apply a filter for severity "Critical"
+Then only alerts with severity score 80-100 are displayed
+
+Given I am a Shop Supervisor viewing the alerts dashboard
+When I clear all filters
+Then all active alerts for my location are displayed</p></blockquote>
+
+        <p>The suggestions use real domain terminology because the CLAUDE.md includes context about the product, its personas, and its capabilities. That's the difference between generic AI output and something a PM can actually approve and push.</p>
+
+        <h2>What this saves</h2>
+
+        <p>The obvious answer is time. A manual backlog grooming pass across 100+ items takes hours. The agent does it in minutes and produces a structured report I can review over coffee.</p>
+
+        <p>But the real value is consistency. Every item gets the same level of scrutiny every time. No one skips the boring bug that's been sitting there for three sprints. No one forgets to check if acceptance criteria are testable. The bar doesn't drop when the team is busy.</p>
+
+        <p>It also creates a feedback loop. When developers see that vague stories get flagged automatically, they start writing better stories. The agent doesn't replace the PM — it raises the floor so the PM can focus on strategy instead of formatting.</p>
+
+        <h2>What I'd do differently</h2>
+
+        <p>Start with loose criteria and tighten over time. I started too strict and the output was overwhelming. Flag the things that genuinely block work (no description, no AC) and warn on everything else until the team builds the habit.</p>
+
+        <p>Include your product context in the CLAUDE.md. Without it, the agent writes generic suggestions. With it, the suggestions reference your actual personas, features, and domain language. That's what makes them worth approving instead of rewriting.</p>
+
+        <p>Scope it to one team first. I started with our web team's area path. Get the criteria right for one team before rolling it out to the org.</p>
+
+        <h2>What's next</h2>
+
+        <p>Right now I run it manually when I want a backlog health check. The next step is scheduling it to run daily via Claude CLI's headless mode, either through a pipeline or a scheduled task, so the report lands before standup. The longer-term goal is triggering it on work item creation so new items get reviewed immediately.</p>
+
+        <p>If you're a PM or PO drowning in backlog debt, this is a weekend project that pays for itself immediately. The hardest part isn't the technology — it's deciding what "good" looks like for your team and writing it down clearly enough for the agent to enforce it.</p>
+
+        <hr class="article-divider" />
+
+        <div class="article-footer">
+          <img src="IMG_0226.jpeg" alt="Chris Phelan" class="article-author-photo" />
+          <div class="article-author-info">
+            <span class="article-author-name">Chris Phelan</span>
+            <span class="article-author-title">Senior Technical Product Manager &nbsp;·&nbsp; Portland, OR</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Chris Phelan. Built with care.</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+
+</body>
+</html>
