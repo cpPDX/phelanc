@@ -1,8 +1,8 @@
-# Block all general crawlers
+# Allow all general crawlers
 User-agent: *
-Disallow: /
+Allow: /
 
-# AI training crawlers
+# Block AI training crawlers
 User-agent: GPTBot
 Disallow: /
 
