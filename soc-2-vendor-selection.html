@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Do You Pick a Third-Party Vendor? — Chris Phelan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .article-hero {
+      padding: 140px 0 64px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(88, 166, 255, 0.08) 0%, transparent 70%);
+    }
+
+    .article-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 40px;
+      transition: color var(--transition);
+    }
+
+    .article-back:hover { color: var(--accent); }
+
+    .article-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(88, 166, 255, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .article-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+
+    .article-meta {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .article-body {
+      padding: 64px 0 100px;
+    }
+
+    .article-content {
+      max-width: 680px;
+    }
+
+    .article-content p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+
+    .article-content h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 48px 0 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .article-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin-bottom: 24px;
+      padding-left: 0;
+    }
+
+    .article-content ul li {
+      position: relative;
+      padding-left: 16px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 8px;
+      list-style: none;
+    }
+
+    .article-content ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .article-content ol {
+      padding-left: 20px;
+    }
+
+    .article-content ol li {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    .article-content ol li::marker {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .article-content blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 0 0 24px;
+      padding: 4px 0 4px 20px;
+      background: var(--surface);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .article-content blockquote p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      line-height: 1.7;
+      margin-bottom: 0;
+      padding: 12px 16px;
+      white-space: pre-wrap;
+    }
+
+    .article-table-wrap {
+      overflow-x: auto;
+      margin: 0 0 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .article-content table th,
+    .article-content table td {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      line-height: 1.5;
+      vertical-align: top;
+    }
+
+    .article-content table th {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      background: rgba(88, 166, 255, 0.05);
+    }
+
+    .article-content table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    .article-footer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-author-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--border);
+    }
+
+    .article-author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .article-author-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article-author-title {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .article-hero { padding: 120px 0 48px; }
+      .article-body { padding: 48px 0 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">CP</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ARTICLE HERO -->
+  <section class="article-hero">
+    <div class="container">
+      <a href="index.html#projects" class="article-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Projects
+      </a>
+      <div class="article-tag">Vendor Selection &amp; Process</div>
+      <h1 class="article-title">How Do You Pick a Third-Party Vendor? Here's What I Did for SOC 2.</h1>
+      <p class="article-meta">Chris Phelan &nbsp;·&nbsp; Senior Technical Product Manager</p>
+    </div>
+  </section>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-body">
+    <div class="container">
+      <div class="article-content">
+
+        <p>Five firms. A check big enough to matter for a sub-20-person company. A target date by Friday. Decks that all said the same three words in different fonts.</p>
+
+        <p>My first instinct was to pick the cheapest one and move on. That instinct was wrong, but it took a real method to prove it.</p>
+
+        <p>This is not a post about which firm I chose. The decision is still being made as I write this, and naming names would not help you anyway. This is a post about the method. The SOC 2 audit is the worked example. The transferable lesson is what to do when you have five vendors, a high-stakes check, and no obvious winner.</p>
+
+        <h2>The reframe that actually mattered</h2>
+
+        <p>Picking a vendor is not about finding the best vendor. It is about making the decision legible to the person who has to sign off on it.</p>
+
+        <p>That sentence sounds obvious. It is not. Most vendor evaluations I have watched (and a few I have run badly) optimize for "which one do I like." That works until you have to defend the choice to a CEO, a board, a CFO, or a future auditor asking why you spent the money you spent. At that point "I liked them" is not a frame. It is a vibe.</p>
+
+        <p>Everything below exists to convert vibes into a frame.</p>
+
+        <h2>Write the brief before you take a single demo</h2>
+
+        <p>Before I scheduled anything, I wrote a short evaluation brief. It said what we actually were: a tiny team, this stack, this is what we have already done, this is what is still open. It listed the criteria up front. It told vendors to respond in whatever format showed their firm best, not to fill in a template.</p>
+
+        <p>Two lines in the brief did most of the work:</p>
+
+        <ul>
+          <li>Here is what we have already finished, so do not pad scope.</li>
+          <li>We want the right report, not a fast report.</li>
+        </ul>
+
+        <p>Both were honesty signals, and they shaped every response I got back. A vendor that tried to sell me work I had already done flagged itself. A vendor that pitched on speed had to do it knowing I had told them speed was not the goal.</p>
+
+        <p>Writing the brief is the cheapest way to discover what you actually care about. You will rewrite half of your assumptions by the time you finish it. That is the point.</p>
+
+        <h2>Evaluate in parallel, not one at a time</h2>
+
+        <p>Five firms, same brief, same window. Sequential evaluation lets the first decent option anchor everything that follows. Parallel evaluation makes the differences visible because you are holding all of it in your head at once.</p>
+
+        <p>This is logistically annoying. Schedule it anyway.</p>
+
+        <h2>Define the scorecard before the demos, fill it out while the demo is still warm</h2>
+
+        <p>Seven criteria, 1 to 5, decided in advance: service delivery model, audit credibility, platform quality, timeline, pricing, the bundled pen test, and cultural fit. Composite out of 35.</p>
+
+        <p>I filled out each scorecard within thirty minutes of the call ending. Verbatim quotes where I could. One "memorable moment" per vendor (the thing I would tell a colleague about that firm in a hallway). The point of doing it warm is that twenty-four hours later you are already rationalizing toward the vendor you liked, and you will score to match.</p>
+
+        <p>Scoring in advance is what stops that.</p>
+
+        <h2>Treat the composite as reading material, not the verdict</h2>
+
+        <p>The equal-weight total is one lens. It is not the answer.</p>
+
+        <p>A "minimum required to get the deal closed" lens weights price heavily and ranks the field differently. A credibility lens favors the firms with the names enterprise buyers recognize. An "operational tax" lens (how much of this work lands on my tiny team) favors anything that absorbs labor.</p>
+
+        <p>The same scorecard, four lenses, four different rankings. Saying that out loud to a decision-maker is more honest than handing them one number and pretending it decides anything. The composite tells you which vendors are not in the conversation. It does not tell you which one wins.</p>
+
+        <h2>Reframe "which vendor" as "which path"</h2>
+
+        <p>This was the move that turned a confusing field into a clean comparison.</p>
+
+        <p>The real units were not firms. They were bundles. Audit firm, plus maybe a compliance platform, plus a pen test. Once I bundled them, five distinct paths appeared:</p>
+
+        <div class="article-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Path</th>
+                <th>What it is</th>
+                <th>Approx. Year-1 cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>The cost floor</td>
+                <td>Audit-only, no platform</td>
+                <td>~$11K</td>
+              </tr>
+              <tr>
+                <td>Cheapest-with-a-platform</td>
+                <td>Budget platform plus the same auditor</td>
+                <td>~$14K to $18K</td>
+              </tr>
+              <tr>
+                <td>Single-vendor</td>
+                <td>One firm doing platform, audit, and pen test</td>
+                <td>~$15.5K</td>
+              </tr>
+              <tr>
+                <td>Premium-credibility</td>
+                <td>Top-tier auditor plus the deepest platform</td>
+                <td>~$18K to $21.5K</td>
+              </tr>
+              <tr>
+                <td>Big-brand</td>
+                <td>Largest-name auditor plus a light platform</td>
+                <td>~$21K to $30K</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>You do not compare vendors. You compare paths. The paths have shapes. The shapes are what the decision-maker actually needs to see.</p>
+
+        <p>By the end, two of the paths had receded on their own. Cheapest-with-a-platform looked cheap until a slow delivery cadence and missing integrations undercut it. Big-brand had the strongest name recognition, the thinnest tooling, the highest cost, and the most unanswered questions. They are useful illustrations of "looks good on one axis, fails on another," which is most of vendor selection in one sentence.</p>
+
+        <h2>Quantify the intangible</h2>
+
+        <p>This is the move that unlocked the whole decision.</p>
+
+        <p>Everyone in the platform tier says the same thing: "our platform saves you time." Nobody prices it. So I made them price it.</p>
+
+        <p>I asked the same auditor to quote the audit two ways. Once with a platform handling evidence collection. Once without it, fully manual. The gap between those two quotes was roughly twelve thousand dollars.</p>
+
+        <p>That gap is the price of the labor a platform absorbs. On a no-platform path, that work does not disappear. It lands on a sub-20-person team as what I started calling the operational tax: hours my engineers and I would spend collecting screenshots, chasing access reviews, and assembling evidence binders instead of building the product.</p>
+
+        <p>Twelve thousand dollars is not a small number against an $11K audit. It is more than the audit. Once it was a line item, the premium path's higher sticker price was sitting next to a number that explained it.</p>
+
+        <p>Find the version of this for your decision. Get the same scope quoted two ways. Make the hidden cost visible. Nothing else in the analysis moved the conversation as much as this single number did.</p>
+
+        <h2>Demand a real deliverable before you decide</h2>
+
+        <p>I asked every firm for a redacted sample of the actual work product. Not a deck. Not a case study. The thing you are actually buying.</p>
+
+        <p>Marketing decks are free. A sample of the deliverable is not. A firm that can produce a clean one is telling you something about how they work. A firm that cannot, or will not, is also telling you something.</p>
+
+        <p>The pattern of who produced one quickly, who needed to be asked twice, and who could not at all became its own scorecard.</p>
+
+        <h2>Send written question batches and track who owes you what</h2>
+
+        <p>After the demos, the comparison surfaced gaps. Pricing assumptions that did not line up. A scope item one firm bundled and another did not. A credential I needed to verify.</p>
+
+        <p>I sent each firm a targeted batch of written questions and tracked every open item with an owner and a date. Written answers are quotable, comparable, and harder to fudge than a confident verbal in a demo. They also create a paper trail, which matters more than people realize when you are trying to remember six weeks later who said what.</p>
+
+        <p>Who responded, how fast, and how completely was its own data set.</p>
+
+        <h2>Read vendor behavior during the evaluation as data</h2>
+
+        <p>How a vendor behaves while they are selling you is the best preview of how they behave once they have your money.</p>
+
+        <p>One firm caught its own pricing error and retracted an overstated claim, against its own interest. That raised my trust meaningfully. Another declined to document something I had asked for and offered a verbal proxy instead. That was a data point. Not disqualifying. Logged. A third had a delivery cadence so slow it would have pushed the result past the window I needed, which no discount could fix.</p>
+
+        <p>You are interviewing them. They are auditioning. Watch the audition.</p>
+
+        <h2>Separate the sub-decisions from the main decision</h2>
+
+        <p>Several smaller calls kept trying to muddy the primary comparison. The length of the observation window. An optional scope add-on. A separate operational add-on that two firms offered and three did not.</p>
+
+        <p>I pulled each one out and decided it on its own merits, then re-applied it across the field as a constant. Otherwise a vendor that happened to bundle a secondary thing well would have looked better on the main decision than it deserved to.</p>
+
+        <p>If a sub-decision is contaminating your main one, it is a separate decision.</p>
+
+        <h2>Hand the decision-maker a clean frame, not a data dump</h2>
+
+        <p>The final artifact for the person who signs is not the spreadsheet. The spreadsheet exists so that the frame is defensible.</p>
+
+        <p>The frame is one page. Three finalists, named by their path character, not by their firm name:</p>
+
+        <ul>
+          <li>The cost floor. Lowest sticker. Highest operational tax on our team.</li>
+          <li>Premium-credibility. Highest sticker. Lowest operational tax, strongest credibility, fastest turnaround. The premium is roughly equal to the quantified labor it absorbs.</li>
+          <li>Single-vendor simplicity. Middle sticker. One throat to choke. One open question about how audit independence is structured inside a single-vendor model.</li>
+        </ul>
+
+        <p>Three options. Each one a coherent choice. Each one defensible if asked why. A busy executive can read that in five minutes and pick, and the analysis behind it can be opened up if they want to go deeper.</p>
+
+        <p>That is the job. Not to make the choice for them. To make the choice makeable.</p>
+
+        <h2>A note on the messy middle</h2>
+
+        <p>This did not run cleanly. The "operational tax" frame did not exist in week one. I built it in week three because the equal-weight composite was not telling me what I needed to know. Anyone who tells you their vendor selection went smoothly is selling something.</p>
+
+        <h2>The transferable takeaway</h2>
+
+        <p>If you are about to run a high-stakes vendor decision in any category, four things travel:</p>
+
+        <ol>
+          <li><strong>Write the brief first.</strong> It teaches you what you actually care about.</li>
+          <li><strong>Reframe vendors as paths.</strong> Paths have shapes. Vendors have logos.</li>
+          <li><strong>Quantify the intangible.</strong> Get the same scope quoted two ways so the hidden cost becomes a line item.</li>
+          <li><strong>Demand a sample of the real deliverable.</strong> Decks are free. The work is not.</li>
+        </ol>
+
+        <p>The SOC 2 audit is the example. The method is the gift. The next time you are staring at five logos and a Friday deadline, the question is not "which one." The question is "which path, and can I make this legible to the person who signs."</p>
+
+        <p>If you can answer that, the rest is paperwork.</p>
+
+        <hr class="article-divider" />
+
+        <div class="article-footer">
+          <img src="IMG_0226.jpeg" alt="Chris Phelan" class="article-author-photo" />
+          <div class="article-author-info">
+            <span class="article-author-name">Chris Phelan</span>
+            <span class="article-author-title">Senior Technical Product Manager &nbsp;·&nbsp; Portland, OR</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Chris Phelan. Built with care.</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+
+</body>
+</html>
