@@ -3,19 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chris Phelan — Head of Product</title>
+  <title>Chris Phelan — Senior Technical Product Manager</title>
+  <meta name="description" content="Chris Phelan is a senior technical product manager specializing in APIs, data systems, integrations, and AI-enabled product workflows." />
+  <meta name="theme-color" content="#0d1117" />
+  <link rel="canonical" href="https://cppdx.github.io/phelanc/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="alternate" type="application/rss+xml" title="Chris Phelan — Writing &amp; Case Studies" href="feed.xml" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Chris Phelan — Senior Technical Product Manager" />
+  <meta property="og:description" content="Technical product leader specializing in APIs, data systems, integrations, and AI-enabled product workflows." />
+  <meta property="og:url" content="https://cppdx.github.io/phelanc/" />
+  <meta property="og:image" content="https://cppdx.github.io/phelanc/headshot-640.jpg" />
+  <meta property="og:image:alt" content="Chris Phelan" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chris Phelan — Senior Technical Product Manager" />
+  <meta name="twitter:description" content="Technical product leader specializing in APIs, data systems, integrations, and AI-enabled product workflows." />
+  <meta name="twitter:image" content="https://cppdx.github.io/phelanc/headshot-640.jpg" />
+  <script>
+    document.documentElement.classList.add('js');
+    window.revealFallback = window.setTimeout(() => document.documentElement.classList.remove('js'), 3000);
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Chris Phelan",
+      "url": "https://cppdx.github.io/phelanc/",
+      "image": "https://cppdx.github.io/phelanc/headshot-640.jpg",
+      "jobTitle": "Senior Technical Product Manager",
+      "sameAs": ["https://www.linkedin.com/in/phelanc"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Portland",
+        "addressRegion": "Oregon",
+        "addressCountry": "US"
+      }
+    }
+  </script>
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <!-- NAV -->
-  <nav id="navbar">
+  <nav id="navbar" aria-label="Primary navigation">
     <div class="nav-inner">
-      <a href="#hero" class="nav-logo">CP</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <a href="#hero" class="nav-logo" aria-label="Chris Phelan home">CP</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
@@ -23,11 +62,13 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#education">Education</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#projects">Writing</a></li>
         <li><a href="#contact" class="nav-cta">Contact</a></li>
       </ul>
     </div>
   </nav>
+
+  <main id="main-content">
 
   <!-- HERO -->
   <section id="hero">
@@ -36,17 +77,17 @@
       <h1 class="hero-name">Chris Phelan</h1>
       <h2 class="hero-title">Senior Technical Product Manager</h2>
       <p class="hero-location">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Portland, Oregon
       </p>
       <div class="hero-actions">
         <a href="https://linkedin.com/in/phelanc" target="_blank" rel="noopener" class="btn btn-primary">Connect on LinkedIn</a>
-        <a href="#experience" class="btn btn-outline">View Experience</a>
+        <a href="#projects" class="btn btn-outline">Read My Writing</a>
       </div>
     </div>
     <div class="hero-scroll-hint">
       <span>Scroll</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
     </div>
   </section>
 
@@ -56,7 +97,10 @@
       <h2 class="section-title reveal">About Me</h2>
       <div class="about-grid reveal">
         <div class="about-photo">
-          <img src="IMG_0226.jpeg" alt="Chris Phelan" class="headshot" />
+          <picture>
+            <source type="image/webp" srcset="headshot-320.webp 320w, headshot-640.webp 640w" sizes="180px" />
+            <img src="headshot-640.jpg" alt="Chris Phelan" class="headshot" width="640" height="640" loading="lazy" decoding="async" />
+          </picture>
         </div>
         <div class="about-text">
           <p>
@@ -78,7 +122,7 @@
           </div>
           <div class="highlight-card">
             <span class="highlight-num">3+</span>
-            <span class="highlight-label">Years as Head of Product</span>
+            <span class="highlight-label">Years Leading Product</span>
           </div>
           <div class="highlight-card">
             <span class="highlight-num">2</span>
@@ -238,35 +282,32 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- WRITING -->
   <section id="projects">
     <div class="container">
-      <h2 class="section-title reveal">Projects</h2>
+      <h2 class="section-title reveal">Writing &amp; Case Studies</h2>
       <div class="projects-grid">
-        <a href="ai-personas-product-stories.html" class="project-card reveal project-card--link">
-          <div class="project-placeholder-icon">🤖</div>
-          <h3>Using AI Personas to Pressure-Test Product Stories</h3>
-          <p>How I use fleet-specific AI personas to stress-test requirements and sharpen stakeholder conversations before engineering touches them.</p>
-          <span class="project-tag">AI &amp; Product Process</span>
-        </a>
         <a href="soc-2-vendor-selection.html" class="project-card reveal project-card--link">
           <div class="project-placeholder-icon">🛡️</div>
           <h3>How Do You Pick a Third-Party Vendor? Here's What I Did for SOC 2.</h3>
           <p>A practitioner's method for running a high-stakes vendor evaluation, told through a SOC 2 Type II audit selection.</p>
+          <p class="project-meta"><time datetime="2026-05-27">May 27, 2026</time> · 9 min read</p>
           <span class="project-tag">Vendor Selection &amp; Process</span>
         </a>
         <a href="ai-product-owner-agent-azure-devops.html" class="project-card reveal project-card--link">
           <div class="project-placeholder-icon">📋</div>
           <h3>I Built an AI Product Owner Agent That Reviews My Azure DevOps Backlog</h3>
-          <p>How I used Claude CLI and a CLAUDE.md file to automate backlog grooming — flagging bad stories, rewriting descriptions, and generating Gherkin acceptance criteria.</p>
+          <p>How I used Claude Code and a CLAUDE.md file to automate backlog grooming — flagging bad stories, rewriting descriptions, and generating Gherkin acceptance criteria.</p>
+          <p class="project-meta"><time datetime="2026-04-08">April 8, 2026</time> · 5 min read</p>
           <span class="project-tag">AI &amp; Product Tooling</span>
         </a>
-        <div class="project-card reveal placeholder-card">
-          <div class="project-placeholder-icon">🚀</div>
-          <h3>More Coming Soon</h3>
-          <p>Additional case studies and project spotlights will be added here.</p>
-          <span class="project-tag">Coming Soon</span>
-        </div>
+        <a href="ai-personas-product-stories.html" class="project-card reveal project-card--link">
+          <div class="project-placeholder-icon">🤖</div>
+          <h3>Using AI Personas to Pressure-Test Product Stories</h3>
+          <p>How I use fleet-specific AI personas to stress-test requirements and sharpen stakeholder conversations before engineering touches them.</p>
+          <p class="project-meta"><time datetime="2026-04-01">April 1, 2026</time> · 2 min read</p>
+          <span class="project-tag">AI &amp; Product Process</span>
+        </a>
       </div>
     </div>
   </section>
@@ -282,17 +323,19 @@
       <div class="contact-links reveal">
         <a href="https://linkedin.com/in/phelanc" target="_blank" rel="noopener" class="contact-item contact-item-featured">
           <div class="contact-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </div>
           <div class="contact-text">
             <span class="contact-label">LinkedIn</span>
             <span class="contact-value">linkedin.com/in/phelanc</span>
           </div>
-          <svg class="contact-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg aria-hidden="true" focusable="false" class="contact-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>

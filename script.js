@@ -1,102 +1,94 @@
-// ===== NAV SCROLL EFFECT =====
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 20) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-  highlightNavLink();
-});
-
-// ===== MOBILE NAV TOGGLE =====
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
+const sections = document.querySelectorAll('main section[id]');
 
-navToggle.addEventListener('click', () => {
-  navToggle.classList.toggle('open');
-  navLinks.classList.toggle('open');
-});
+function setMenuOpen(isOpen) {
+  if (!navToggle || !navLinks) return;
 
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navToggle.classList.remove('open');
-    navLinks.classList.remove('open');
-  });
-});
-
-// ===== ACTIVE NAV LINK =====
-const sections = document.querySelectorAll('section[id]');
+  navToggle.classList.toggle('open', isOpen);
+  navLinks.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+  navToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+}
 
 function highlightNavLink() {
-  const scrollPos = window.scrollY + 100;
-  sections.forEach(section => {
-    const top = section.offsetTop;
-    const height = section.offsetHeight;
-    const id = section.getAttribute('id');
-    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-    if (link) {
-      if (scrollPos >= top && scrollPos < top + height) {
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-        link.classList.add('active');
-      }
+  if (!sections.length) return;
+
+  const scrollPosition = window.scrollY + 110;
+  const isAtPageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+  let activeLink = null;
+
+  sections.forEach((section, index) => {
+    const link = document.querySelector(`.nav-links a[href="#${section.id}"]`);
+    const isLastSection = index === sections.length - 1;
+    const isActive = (isAtPageBottom && isLastSection)
+      || (scrollPosition >= section.offsetTop
+        && scrollPosition < section.offsetTop + section.offsetHeight);
+
+    if (link && isActive) activeLink = link;
+  });
+
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach((link) => {
+    const isActive = link === activeLink;
+    link.classList.toggle('active', isActive);
+    if (isActive) {
+      link.setAttribute('aria-current', 'location');
+    } else {
+      link.removeAttribute('aria-current');
     }
   });
 }
 
-// ===== SCROLL REVEAL =====
-const revealElements = document.querySelectorAll('.reveal');
+function updateNavbar() {
+  navbar?.classList.toggle('scrolled', window.scrollY > 20);
+  highlightNavLink();
+}
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, index) => {
-    if (entry.isIntersecting) {
-      // Stagger children within the same parent
-      const siblings = entry.target.parentElement.querySelectorAll('.reveal:not(.visible)');
-      let delay = 0;
-      siblings.forEach(sibling => {
-        if (sibling === entry.target) {
-          sibling.style.transitionDelay = `${delay}ms`;
-        }
-      });
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, delay);
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.12,
-  rootMargin: '0px 0px -40px 0px'
+navToggle?.addEventListener('click', () => {
+  setMenuOpen(navToggle.getAttribute('aria-expanded') !== 'true');
 });
 
-revealElements.forEach(el => revealObserver.observe(el));
+navLinks?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => setMenuOpen(false));
+});
 
-// ===== STAGGERED GRID REVEALS =====
-// For grids (skills, edu, projects) stagger children
-const staggerContainers = document.querySelectorAll('.skills-grid, .edu-grid, .projects-grid, .contact-links, .about-highlights');
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    setMenuOpen(false);
+    navToggle?.focus();
+  }
+});
 
-staggerContainers.forEach(container => {
-  const children = container.querySelectorAll('.reveal, .skill-pill, .highlight-card');
-  const containerObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        children.forEach((child, i) => {
-          setTimeout(() => {
-            child.classList.add('visible');
-            child.style.transitionDelay = '0ms';
-          }, i * 80);
-        });
-        containerObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+window.addEventListener('scroll', updateNavbar, { passive: true });
+updateNavbar();
 
-  // skill pills don't have .reveal by default, add it
-  children.forEach(child => {
-    if (!child.classList.contains('reveal')) {
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+document.querySelectorAll('.skills-grid, .edu-grid, .projects-grid, .contact-links, .about-highlights')
+  .forEach((container) => {
+    container.querySelectorAll('.reveal, .skill-pill, .highlight-card').forEach((child, index) => {
       child.classList.add('reveal');
-    }
+      child.style.setProperty('--reveal-delay', `${index * 70}ms`);
+    });
   });
 
-  containerObserver.observe(container);
-});
+if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+  document.querySelectorAll('.reveal').forEach((element) => element.classList.add('visible'));
+} else {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+  });
+
+  document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+}
+
+window.clearTimeout(window.revealFallback);
