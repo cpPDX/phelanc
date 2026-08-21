@@ -2,7 +2,7 @@
 User-agent: *
 Allow: /
 
-# Block AI training crawlers
+# Selected AI crawler preferences
 User-agent: GPTBot
 Disallow: /
 
@@ -47,3 +47,5 @@ Disallow: /
 
 User-agent: AI2Bot
 Disallow: /
+
+Sitemap: https://cppdx.github.io/phelanc/sitemap.xml

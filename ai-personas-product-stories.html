@@ -4,150 +4,83 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using AI Personas to Pressure-Test Product Stories — Chris Phelan</title>
+  <meta name="description" content="How Chris Phelan uses fleet-specific AI personas to pressure-test requirements and sharpen stakeholder conversations before engineering begins." />
+  <meta name="theme-color" content="#0d1117" />
+  <link rel="canonical" href="https://cppdx.github.io/phelanc/ai-personas-product-stories.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="alternate" type="application/rss+xml" title="Chris Phelan — Writing &amp; Case Studies" href="feed.xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Using AI Personas to Pressure-Test Product Stories" />
+  <meta property="og:description" content="A practical method for using fleet-specific AI personas to improve requirements before engineering begins." />
+  <meta property="og:url" content="https://cppdx.github.io/phelanc/ai-personas-product-stories.html" />
+  <meta property="og:image" content="https://cppdx.github.io/phelanc/headshot-640.jpg" />
+  <meta property="og:image:alt" content="Chris Phelan" />
+  <meta property="article:published_time" content="2026-04-01" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Using AI Personas to Pressure-Test Product Stories" />
+  <meta name="twitter:description" content="A practical method for using fleet-specific AI personas to improve requirements before engineering begins." />
+  <meta name="twitter:image" content="https://cppdx.github.io/phelanc/headshot-640.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    .article-hero {
-      padding: 140px 0 64px;
-      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(88, 166, 255, 0.08) 0%, transparent 70%);
+  <link rel="stylesheet" href="article.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Using AI Personas to Pressure-Test Product Stories Before Engineering Touches Them",
+      "description": "How Chris Phelan uses fleet-specific AI personas to pressure-test requirements and sharpen stakeholder conversations before engineering begins.",
+      "datePublished": "2026-04-01",
+      "dateModified": "2026-04-01",
+      "mainEntityOfPage": "https://cppdx.github.io/phelanc/ai-personas-product-stories.html",
+      "image": "https://cppdx.github.io/phelanc/headshot-640.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Chris Phelan",
+        "url": "https://cppdx.github.io/phelanc/"
+      }
     }
-
-    .article-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      font-weight: 500;
-      margin-bottom: 40px;
-      transition: color var(--transition);
-    }
-
-    .article-back:hover { color: var(--accent); }
-
-    .article-tag {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: rgba(88, 166, 255, 0.1);
-      color: var(--accent);
-      border: 1px solid rgba(88, 166, 255, 0.25);
-      margin-bottom: 20px;
-    }
-
-    .article-title {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-      max-width: 720px;
-    }
-
-    .article-meta {
-      color: var(--text-dim);
-      font-size: 0.88rem;
-      font-weight: 500;
-    }
-
-    .article-body {
-      padding: 64px 0 100px;
-    }
-
-    .article-content {
-      max-width: 680px;
-    }
-
-    .article-content p {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.85;
-      margin-bottom: 24px;
-    }
-
-    .article-content p:last-child {
-      margin-bottom: 0;
-    }
-
-    .article-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 48px 0;
-    }
-
-    .article-footer {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .article-author-photo {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center top;
-      border: 2px solid var(--border);
-    }
-
-    .article-author-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .article-author-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .article-author-title {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 768px) {
-      .article-hero { padding: 120px 0 48px; }
-      .article-body { padding: 48px 0 72px; }
-    }
-  </style>
+  </script>
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to article</a>
+
   <!-- NAV -->
-  <nav id="navbar">
+  <nav id="navbar" aria-label="Primary navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">CP</a>
+      <a href="index.html" class="nav-logo" aria-label="Chris Phelan home">CP</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#experience">Experience</a></li>
         <li><a href="index.html#skills">Skills</a></li>
         <li><a href="index.html#education">Education</a></li>
-        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#projects" aria-current="page">Writing</a></li>
         <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
       </ul>
     </div>
   </nav>
 
+  <main id="main-content">
+  <article>
+
   <!-- ARTICLE HERO -->
-  <section class="article-hero">
+  <header class="article-hero">
     <div class="container">
       <a href="index.html#projects" class="article-back">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Projects
+        <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Writing
       </a>
       <div class="article-tag">AI &amp; Product Process</div>
       <h1 class="article-title">Using AI Personas to Pressure-Test Product Stories Before Engineering Touches Them</h1>
-      <p class="article-meta">Chris Phelan &nbsp;·&nbsp; Senior Technical Product Manager</p>
+      <p class="article-meta">Chris Phelan &nbsp;·&nbsp; Senior Technical Product Manager &nbsp;·&nbsp; <time datetime="2026-04-01">April 1, 2026</time> &nbsp;·&nbsp; 2 min read</p>
     </div>
-  </section>
+  </header>
 
   <!-- ARTICLE BODY -->
   <div class="article-body">
@@ -171,7 +104,10 @@
         <hr class="article-divider" />
 
         <div class="article-footer">
-          <img src="IMG_0226.jpeg" alt="Chris Phelan" class="article-author-photo" />
+          <picture>
+            <source type="image/webp" srcset="headshot-320.webp 320w, headshot-640.webp 640w" sizes="48px" />
+            <img src="headshot-640.jpg" alt="Chris Phelan" class="article-author-photo" width="640" height="640" loading="lazy" decoding="async" />
+          </picture>
           <div class="article-author-info">
             <span class="article-author-name">Chris Phelan</span>
             <span class="article-author-title">Senior Technical Product Manager &nbsp;·&nbsp; Portland, OR</span>
@@ -182,17 +118,15 @@
     </div>
   </div>
 
+  </article>
+  </main>
+
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Chris Phelan. Built with care.</p>
   </footer>
 
-  <script>
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
-    });
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
